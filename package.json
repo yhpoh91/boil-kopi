@@ -1,9 +1,11 @@
 {
   "name": "boil-kopi",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "main": "index.js",
   "scripts": {
-    "start": "node src",
+    "start": "npm run server",
+    "server": "node src/boot/serverIndex.js",
+    "daemon": "node src/boot/daemonIndex.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Yee Hui Poh <yhpoh91@gmail.com>",

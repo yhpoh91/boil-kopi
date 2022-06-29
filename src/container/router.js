@@ -29,7 +29,7 @@ locator.register('exampleRouter', exampleRouter, [
 ]);
 locator.register('exampleValidation', exampleValidation, ['joi']);
 locator.register('exampleController', exampleController, [
-  'logger'
+  'logger',
 ]);
 
 

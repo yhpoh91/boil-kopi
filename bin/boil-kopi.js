@@ -1,5 +1,4 @@
 #! /usr/bin/env node
-
 'use strict';
 
 const { execSync } = require('child_process');
@@ -15,7 +14,7 @@ const getProjectName = () => {
   const projectName = process.argv[2];
   console.log(`Project Name: ${projectName}`);
   return projectName;
-}
+};
 
 // Get Project Path
 const getProjectPath = (projectName) => {
@@ -23,7 +22,7 @@ const getProjectPath = (projectName) => {
   const projectPath = path.join(currentPath, projectName);
   console.log(`Project Path: ${projectPath}`);
   return projectPath;
-}
+};
 
 
 // Create Project Directory
@@ -39,7 +38,7 @@ const createProjectDirectory = (projectName, projectPath) => {
     }
     process.exit(1);
   }
-}
+};
 
 
 // Download files
@@ -52,7 +51,7 @@ const downloadFromRepo = async (projectName) => {
   } catch (error) {
     return Promise.reject(error);
   }
-}
+};
 
 // Modify project
 const modifyProject = (projectPath, projectName) => {
@@ -68,7 +67,7 @@ const modifyProject = (projectPath, projectName) => {
   delete packageJson.bin;
 
   fs.writeFileSync(filePath, JSON.stringify(packageJson, null, 2));
-}
+};
 
 // Install dependencies
 const installDependencies = async (projectPath) => {
@@ -79,7 +78,7 @@ const installDependencies = async (projectPath) => {
   } catch (error) {
     return Promise.reject(error);
   }
-}
+};
 
 // Clean directory
 const cleanDirectory = (projectPath) => {
@@ -87,7 +86,7 @@ const cleanDirectory = (projectPath) => {
   execSync('npx rimraf ./.git');
   fs.rmdirSync(path.join(projectPath, 'bin'), { recursive: true });
   execSync('git init');
-}
+};
 
 // Create local repo
 const createLocalRepo = () => {
@@ -101,10 +100,12 @@ const createLocalRepo = () => {
 
   // Add hidden files
   execSync('git add .gitignore');
+  execSync('git add .eslintrc');
+  execSync('git add .env.example');
 
   // Create initial commit
   execSync('git commit -m "initial commit"');
-}
+};
 
 async function main() {
   try {
@@ -115,7 +116,7 @@ async function main() {
 
     // Go into project directory
     process.chdir(projectPath);
-    
+
     modifyProject(projectPath, projectName);
     await installDependencies();
     cleanDirectory(projectPath);

@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const { L: logger } = require('kopitech-logger')('Process');
 
-const packageJson = require('../package.json');
+const packageJson = require('../../package.json');
 
 /* eslint-disable global-require */
 process.on('unhandledRejection', (reason, p) => {
@@ -29,4 +29,4 @@ logger.info('VERSION:', packageJson.version);
 logger.info('NODEJS VERSION:', process.version);
 
 logger.info('Initializing');
-require('./application');
+require('./daemonApplication');

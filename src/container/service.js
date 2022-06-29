@@ -1,6 +1,7 @@
 const locator = require('kopi-locator');
 
 const server = require('../server');
+const daemon = require('../daemon');
 
 
 locator.register('server', server, [
@@ -12,6 +13,11 @@ locator.register('server', server, [
   'bodyParser',
   'http',
   'globalRouter',
+]);
+
+locator.register('daemon', daemon, [
+  'logger',
+  'config',
 ]);
 
 module.exports = {
