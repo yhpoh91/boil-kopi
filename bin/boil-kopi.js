@@ -96,7 +96,7 @@ const createLocalRepo = () => {
   execSync('git init');
 
   // Add normal files
-  execSync('git add *');
+  execSync('git add .');
 
   // Add hidden files
   execSync('git add .gitignore');
