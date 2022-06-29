@@ -1,6 +1,6 @@
 {
   "name": "boil-kopi",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "main": "index.js",
   "scripts": {
     "start": "node src",
@@ -9,5 +9,41 @@
   "author": "Yee Hui Poh <yhpoh91@gmail.com>",
   "license": "ISC",
   "description": "",
-  "bin": "./bin/boil-kopi.js"
+  "bin": "./bin/boil-kopi.js",
+  "engines": {
+    "node": "12.x"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.2.5",
+    "axios": "^0.27.2",
+    "bluebird": "^3.7.2",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.18.1",
+    "express-validation": "^1.0.2",
+    "http": "0.0.1-security",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "kopi-error-handler": "^1.0.4",
+    "kopi-locator": "^1.0.2",
+    "kopi-time": "^1.0.2",
+    "kopitech-logger": "^1.0.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-jest": "^24.1.0",
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "coveralls": "^3.0.3",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "esm": "^3.2.25",
+    "jest": "^24.1.0",
+    "mocha": "^6.0.1",
+    "regenerator-runtime": "^0.13.2"
+  }
 }

@@ -86,6 +86,24 @@ const cleanDirectory = (projectPath) => {
   console.log('Cleaning project directory...');
   execSync('npx rimraf ./.git');
   fs.rmdirSync(path.join(projectPath, 'bin'), { recursive: true });
+  execSync('git init');
+}
+
+// Create local repo
+const createLocalRepo = () => {
+  console.log('Creating local git...');
+
+  // Create git repo
+  execSync('git init');
+
+  // Add normal files
+  execSync('git add *');
+
+  // Add hidden files
+  execSync('git add .gitignore');
+
+  // Create initial commit
+  execSync('git commit -m "initial commit"');
 }
 
 async function main() {
@@ -101,6 +119,7 @@ async function main() {
     modifyProject(projectPath, projectName);
     await installDependencies();
     cleanDirectory(projectPath);
+    createLocalRepo();
 
     return Promise.resolve();
   } catch (error) {
