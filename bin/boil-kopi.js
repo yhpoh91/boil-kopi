@@ -39,21 +39,36 @@ const createProjectDirectory = (projectName, projectPath) => {
 
 
 // Download files
-const downloadFromRepo = async (projectPath) => {
+const downloadFromRepo = async (projectName) => {
   try {
-    const gitRepo = '';
+    const gitRepo = 'https://github.com/yhpoh91/boil-kopi.git';
     console.log('Downloading...');
-    execSync(`git clone ${gitRepo} ${projectPath}`);
+    execSync(`git clone ${gitRepo} ${projectName}`);
     return Promise.resolve();
   } catch (error) {
     return Promise.reject(error);
   }
 }
 
+// Modify project
+const modifyProject = (projectPath, projectName) => {
+  console.log('Modifying project...');
+  const filePath = path.join(projectPath, 'package.json');
+
+  // Read package.json
+  const packageBuffer = fs.readFileSync(filePath);
+  const packageJson = JSON.parse(packageBuffer);
+
+  packageJson.name = projectName;
+  packageJson.version = '1.0.0';
+  delete packageJson.bin;
+
+  fs.writeFileSync(filePath, JSON.stringify(packageJson, null, 2));
+}
+
 // Install dependencies
 const installDependencies = async (projectPath) => {
   try {
-    const gitRepo = 'https://github.com/rtyley/small-test-repo.git';
     console.log('Installing dependencies...');
     execSync('npm install');
     return Promise.resolve();
@@ -66,19 +81,7 @@ const installDependencies = async (projectPath) => {
 const cleanDirectory = (projectPath) => {
   console.log('Cleaning project directory...');
   execSync('npx rimraf ./.git');
-  fs.rmdirSync(path.join(projectPath, 'bin', { recursive: true }));
-}
-
-// Modify
-const modifyDirectory = (projectPath) => {
-  console.log('Modifying project directory...');
-  const testObject {
-    "query": "is Emi a cat?",
-    "answer": "Yes, Emi is a cat"
-  };
-
-  const filePath = path.join(projectPath, 'package.json');
-  fs.writeFileSync(filePath, JSON.stringify(testObject));
+  fs.rmdirSync(path.join(projectPath, 'bin'), { recursive: true });
 }
 
 async function main() {
@@ -86,14 +89,14 @@ async function main() {
     const projectName = getProjectName();
     const projectPath = getProjectPath(projectName);
     createProjectDirectory(projectName, projectPath);
-    await downloadFromRepo(projectPath);
+    await downloadFromRepo(projectName);
 
     // Go into project directory
     process.chdir(projectPath);
-
+    
+    modifyProject(projectPath, projectName);
     await installDependencies();
     cleanDirectory(projectPath);
-    modifyDirectory(projectPath);
 
     return Promise.resolve();
   } catch (error) {
